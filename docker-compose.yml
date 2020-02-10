@@ -13,6 +13,7 @@ services:
             - mysql
         volumes:
             - ./wordpress:/var/www/app
+            - ./${THEME_FOLDER_NAME}:/var/www/app/wp-content/themes/${THEME_FOLDER_NAME}
 
     mysql:
         image: mysql:5.7
@@ -21,19 +22,14 @@ services:
         ports:
             - "3306:3306"
         volumes:
-            - local_data:/var/lib/mysql
+            - ./db:/var/lib/mysql
         networks:
             - web
         environment:
-            MYSQL_ROOT_PASSWORD: jR7UtsP7ZT4BGXT2
-            MYSQL_DATABASE: db
-            MYSQL_USER: u
-            MYSQL_PASSWORD: jR7UtsP7ZT4BGXT2
-
-volumes:
-    local_data:
-        driver: local
-
+            MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD}
+            MYSQL_DATABASE: ${MYSQL_DATABASE}
+            MYSQL_USER: ${MYSQL_USER}
+            MYSQL_PASSWORD: ${MYSQL_PASSWORD}
 networks:
     web:
         driver: bridge
