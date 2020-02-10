@@ -1,0 +1,39 @@
+version: "3.2"
+
+services:
+    php_fpm:
+        build: .
+        container_name: local_php
+        ports:
+            - "80:80"
+            - "443:443"
+        networks:
+            - web
+        depends_on:
+            - mysql
+        volumes:
+            - ./wordpress:/var/www/app
+
+    mysql:
+        image: mysql:5.7
+        container_name: local_db
+        restart: always
+        ports:
+            - "3306:3306"
+        volumes:
+            - local_data:/var/lib/mysql
+        networks:
+            - web
+        environment:
+            MYSQL_ROOT_PASSWORD: jR7UtsP7ZT4BGXT2
+            MYSQL_DATABASE: db
+            MYSQL_USER: u
+            MYSQL_PASSWORD: jR7UtsP7ZT4BGXT2
+
+volumes:
+    local_data:
+        driver: local
+
+networks:
+    web:
+        driver: bridge
