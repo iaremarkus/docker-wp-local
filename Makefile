@@ -1,24 +1,23 @@
 .DEFAULT_GOAL := it
-.PHONY: download_wordpress up down it
+.PHONY: setup up down it
 
 COLOR_RESET   = \033[0m
-COLOR_INFO    = \033[32m
-COLOR_COMMENT = \033[33m
+COLOR_INFO    = \033[33m
 
-it: download_wordpress up
+it: setup up
 
-download_wordpress:
-	@echo "\n${COLOR_INFO}Downloading WordPress:${COLOR_RESET}\n"
+setup:
+	@echo "${COLOR_INFO}Downloading WordPress:${COLOR_RESET}"
 	wget https://wordpress.org/latest.tar.gz
-	@echo "\n${COLOR_INFO}Unzipping:${COLOR_RESET}\n"
+	@echo "${COLOR_INFO}Unzipping:${COLOR_RESET}"
 	tar xfz latest.tar.gz
-	@echo "\n${COLOR_INFO}Cleaning up:${COLOR_RESET}\n"
+	@echo "${COLOR_INFO}Cleaning up:${COLOR_RESET}"
 	rm latest.tar.gz
 
 up:
-	@echo "\n${COLOR_INFO}Starting Docker:${COLOR_RESET}\n"
+	@echo "${COLOR_INFO}Starting Docker:${COLOR_RESET}"
 	docker-compose up --build -d
 
 down:
-	@echo "\n${COLOR_INFO}Stopping Docker:${COLOR_RESET}\n"
+	@echo "${COLOR_INFO}Stopping Docker:${COLOR_RESET}"
 	docker-compose down
