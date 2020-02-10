@@ -3,7 +3,7 @@ version: "3.2"
 services:
     php_fpm:
         build: .
-        container_name: local_php
+        container_name: ${PROJECT_PREFIX}_local_php
         ports:
             - "80:80"
             - "443:443"
@@ -17,7 +17,7 @@ services:
 
     mysql:
         image: mysql:5.7
-        container_name: local_db
+        container_name: ${PROJECT_PREFIX}_local_db
         restart: always
         ports:
             - "3306:3306"
