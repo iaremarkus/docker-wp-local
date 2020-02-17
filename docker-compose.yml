@@ -13,7 +13,10 @@ services:
             - mysql
         volumes:
             - ./wordpress:/var/www/app
-            - ./${THEME_FOLDER_NAME}:/var/www/app/wp-content/themes/${THEME_FOLDER_NAME}
+            # for WordPress Official
+            # - ./${THEME_FOLDER_NAME}:/var/www/app/wp-content/themes/${THEME_FOLDER_NAME}
+            # for Bedrock
+            - ./${THEME_FOLDER_NAME}:/var/www/app/web/app/themes/${THEME_FOLDER_NAME}
 
     mysql:
         image: mysql:5.7
