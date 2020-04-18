@@ -1,38 +1,35 @@
 version: "3.2"
 
 services:
-    php_fpm:
-        build: .
-        container_name: ${PROJECT_PREFIX}_local_php
-        ports:
-            - "80:80"
-            - "443:443"
-        networks:
-            - web
-        depends_on:
-            - mysql
-        volumes:
-            - ./wordpress:/var/www/app
-            # for WordPress Official
-            # - ./${THEME_FOLDER_NAME}:/var/www/app/wp-content/themes/${THEME_FOLDER_NAME}
-            # for Bedrock
-            - ./${THEME_FOLDER_NAME}:/var/www/app/web/app/themes/${THEME_FOLDER_NAME}
+  php_fpm:
+    build: .
+    container_name: ${PROJECT_PREFIX}_local_php
+    ports:
+      - "80:80"
+      - "443:443"
+    networks:
+      - web
+    depends_on:
+      - mysql
+    volumes:
+      - ./wordpress:/var/www/app
+      - ./${THEME_FOLDER_NAME}:/var/www/app/wp-content/themes/${THEME_FOLDER_NAME}
 
-    mysql:
-        image: mysql:5.7
-        container_name: ${PROJECT_PREFIX}_local_db
-        restart: always
-        ports:
-            - "3306:3306"
-        volumes:
-            - ./db:/var/lib/mysql
-        networks:
-            - web
-        environment:
-            MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD}
-            MYSQL_DATABASE: ${MYSQL_DATABASE}
-            MYSQL_USER: ${MYSQL_USER}
-            MYSQL_PASSWORD: ${MYSQL_PASSWORD}
+  mysql:
+    image: mysql:5.7
+    container_name: ${PROJECT_PREFIX}_local_db
+    restart: always
+    ports:
+      - "3306:3306"
+    volumes:
+      - ./db:/var/lib/mysql
+    networks:
+      - web
+    environment:
+      MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD}
+      MYSQL_DATABASE: ${MYSQL_DATABASE}
+      MYSQL_USER: ${MYSQL_USER}
+      MYSQL_PASSWORD: ${MYSQL_PASSWORD}
 networks:
-    web:
-        driver: bridge
+  web:
+    driver: bridge
